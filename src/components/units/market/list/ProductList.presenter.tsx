@@ -1,6 +1,7 @@
 import {
   Wrapper,
   BestWrapper,
+  BestBox,
   BestImg,
   BestProduct,
   BestProduct2,
@@ -15,6 +16,18 @@ import {
   Sales,
   OnSale,
   Sold,
+  ProductListWrapper,
+  ProductRow,
+  Line,
+  ProductBody,
+  ProductInfoWrapper,
+  ProductInfo,
+  ProductName,
+  ProductRemarks,
+  ProductTag,
+  ProductInfoFooter,
+  ProductPriceWrapper,
+  Submit,
 } from "./ProductList.styles";
 
 export default function ProductListUI(props) {
@@ -22,18 +35,22 @@ export default function ProductListUI(props) {
     <Wrapper>
       <Title>베스트 상품</Title>
       <BestWrapper>
-        <BestImg />
-        <BestProduct>
-          <BestProduct2>
-            <BestName>레고</BestName>
-            <BestRemarks>2021.11.1</BestRemarks>
-            <BestPrice>240,000원</BestPrice>
-          </BestProduct2>
-          <ChoiceWrapper>
-            <ChoiceImg />
-            <ChoiceCount>카운트</ChoiceCount>
-          </ChoiceWrapper>
-        </BestProduct>
+        {props.bestItems?.fetchUseditemsOfTheBest.map((el) => (
+          <BestBox key={el._id}>
+            <BestImg src={`https://storage.googleapis.com/${el?.images[0]}`} />
+            <BestProduct>
+              <BestProduct2>
+                <BestName>{el.name}</BestName>
+                <BestRemarks>{el.remarks}</BestRemarks>
+                <BestPrice>{el.price}</BestPrice>
+              </BestProduct2>
+              <ChoiceWrapper>
+                <ChoiceImg />
+                <ChoiceCount>{el.pickedCount}</ChoiceCount>
+              </ChoiceWrapper>
+            </BestProduct>
+          </BestBox>
+        ))}
       </BestWrapper>
       <div>
         <SearchBar>
@@ -41,49 +58,45 @@ export default function ProductListUI(props) {
             <OnSale>판매중상품</OnSale>
             <Sold>판매된상품</Sold>
           </Sales>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-            }}
-          >
+          <div>
             <input />
             <input />
             <button>검색</button>
           </div>
         </SearchBar>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <img style={{ width: "160px", height: "160px" }} />
-        </div>
-        <div style={{}}>
-          <div>
-            <div>상품명</div>
-            <div>remarks</div>
-            <div>태그</div>
-          </div>
-          <div style={{ display: "flex" }}>
-            <img />
-            <div>판매자</div>
-            <img />
-            <div>20</div>
-          </div>
-        </div>
+      <ProductListWrapper>
+        {props.data?.fetchUseditems.map((el) => (
+          <ProductRow key={el._id}>
+            <Line />
+            <ProductBody>
+              <ProductInfoWrapper>
+                <img
+                  src={`https://storage.googleapis.com/${el?.images[0]}`}
+                  style={{ width: "160px", height: "160px" }}
+                />
+                <ProductInfo>
+                  <ProductName>{el.name}</ProductName>
+                  <ProductRemarks>{el.reamrks}</ProductRemarks>
+                  <ProductTag>{el.tags}</ProductTag>
 
-        <div>
-          <img />
-          <div>2000원</div>
-        </div>
-      </div>
-      <button>상품 등록하기</button>
+                  <ProductInfoFooter>
+                    <img />
+                    <div>{el.seller?.name}</div>
+                    <img />
+                    <div>{el.pickedCount}</div>
+                  </ProductInfoFooter>
+                </ProductInfo>
+              </ProductInfoWrapper>
+              <ProductPriceWrapper>
+                <img />
+                <div>{el.price}</div>
+              </ProductPriceWrapper>
+            </ProductBody>
+          </ProductRow>
+        ))}
+      </ProductListWrapper>
+      <Submit>상품 등록하기</Submit>
     </Wrapper>
   );
 }

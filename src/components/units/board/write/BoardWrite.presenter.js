@@ -142,10 +142,10 @@ export default function BoardWriteUI(props) {
         </PictureGroup>
         <RadioGroup>
           <RadioName>메인설정</RadioName>
-          <RadioButton type="radio" id="youtube"></RadioButton>
-          <RadioLabel htmlFor="youtube">유투브</RadioLabel>
-          <RadioButton type="radio" id="image"></RadioButton>
-          <RadioLabel htmlFor="image">사진</RadioLabel>
+          <RadioButton type="radio" name="radio"></RadioButton>
+          <RadioLabel>유투브</RadioLabel>
+          <RadioButton type="radio" name="radio"></RadioButton>
+          <RadioLabel>사진</RadioLabel>
         </RadioGroup>
         <ButtonGroup>
           {!props.isEdit && (
