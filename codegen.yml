@@ -1,0 +1,9 @@
+schema: http://example.codebootcamp.co.kr/graphql
+generates:
+  ./src/commons/types/generated/types.d.ts:
+    plugins:
+      - typescript
+    config:
+      typesPrefix: I
+
+      # 띄어쓰기에 따라 부모 자식이 나누어지기 때문에 주의, config설정 때 줄을 다르게 작성해서 오류가 발생한 바 있음.
